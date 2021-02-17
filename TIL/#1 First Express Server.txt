@@ -1,0 +1,22 @@
+Express를 이용하여 서버 만들기
+
+#####
+
+const express = require('express');
+
+1. node_modules로 부터 먼저 express 모듈을 불러옵니다. (import)
+
+#####
+
+const app = express();
+
+2. 그 다음 express() 함수를 호출. 이렇게 app을 만들어준것
+
+#####
+
+app.listen(4000, handleListening);
+
+3. 4000번 포트를 listen 해주기
+    - listen하기 시작할 때, handleListening 함수를 호출
+
+#####

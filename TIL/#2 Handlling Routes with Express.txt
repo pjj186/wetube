@@ -1,0 +1,51 @@
+Routing
+
+GET = 단순히 페이지를 가져오는 것.
+
+POST = 정보를 전달.
+
+req & res
+
+req = POST 로 전달한 정보를 요청해서, 정보를 받음 !
+
+res = 정보를 응답! ( res.send )
+
+#####
+
+app.get("/", handleHome);
+
+어떤 사람이 접근하면 handleHome 함수를 호출
+
+이후 페이지를 다시 호출하면 handleHome 함수를 잘 호출하지만
+
+페이지를 계속 로딩한다. 이유는.. request는 있지만 response가 없기때문이다.
+
+#####
+
+응답(response)를 해주기 위해 handleHome 함수를 다음과 같이 수정
+
+function handleHome(req, res) {
+    console.log(req);
+    res.send(`Hello from home`);
+}
+
+홈페이지는 Hello from home 이라는 메시지를 띄우게된다.
+
+#####
+
+app.get("/profile", handleProfile);
+
+URL을
+/profile로 요청하게되면, handleProfile 함수를 호출
+
+You are on my profile 라는 텍스트가 써있는 페이지로 이동하게된다.
+
+#####
+
+서버가 웹사이트 서버처럼 작동하길 바란다면 문자열 send 대신에 HTML, css 파일을 send 해줘야한다.
+
+오늘 학습한것은 기본 작동 방식이다.
+
+서버를 생성하고 route를 생성하고, 그리고 그것에 응답하는 방식이다.
+
+#####

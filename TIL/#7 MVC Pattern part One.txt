@@ -1,0 +1,5 @@
+MVC = > Model, View, Control
+Model = data
+View = data가 어떻게 생겼는지
+Control = data를보여주기 위한 함수
+==>Pattern... 일종의 structure(구조)

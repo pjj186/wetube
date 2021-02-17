@@ -1,0 +1,8 @@
+routes.js : Router들의 집합이라고 생각
+routes.js 를 만듦으로써 복잡하게 접근할 필요 없이 간단하게 가능
+예를들어 코드를 짤때 /user/id/edit~~ 이런식으로 할 필요없이
+routes.js 에서 만든 오브젝트 하나로 간단하게 가능
+
+
+express는 url에 콜론(:)으로 시작하는 값이 있으면 변수로 인식.
+"/:id/edit" ≈ `/${id}/edit`
