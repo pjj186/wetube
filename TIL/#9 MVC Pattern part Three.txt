@@ -1,0 +1,21 @@
+컨트롤러는 어떤 일이 발생하는지에 관한 로직
+
+arrow function?
+
+함수를 function으로 정의했을때, 무언가를 반환하고싶다면 return을 적어줘야함
+
+arrow function에는 implicit return(암시적 리턴) 이라는 것이 있다.
+
+arrow function에서 무언가를 리턴하고 싶다면,
+
+test = () => true;
+
+이런식으로 코드를 작성하면 된다.
+이 코드는 true를 리턴한다는 뜻
+
+하지만
+
+test = () => {true};
+
+이런식으로 대괄호를 적어주면 암시적 성격을 잃게 되서 return을 적어줘야한다.
+
