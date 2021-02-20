@@ -1,0 +1,7 @@
+//- home.pug에서 videoBlock에 객체를 만들어 인자로 넣어주면,
+//- 아래의 videoBlock에서 처리하여 보여줌
+mixin videoBlock(video = {})
+    div.videoBlock
+        video.videoBlock__thumbnail(src=video.videoFile controls=true)
+        h4.videoBlock__title=video.title
+        h6.videoBlock__views=video.views

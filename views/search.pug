@@ -1,5 +1,14 @@
 extends layouts/main
-
+include mixins/videoBlock
+//- 아래의 videos 는 Controller에서 rander 인자로 넘겨받은것
+//- searchingBy를 넘겨받은것처럼
 block content
     div.search__header
         h3 Searching for: #{searchingBy}
+    div.search__videos
+        each item in videos
+            +videoBlock({
+                title: item.title,
+                views: item.views,
+                videoFile:item.videoFile
+            })        

@@ -1,4 +1,28 @@
-export const join = (req, res) => res.render("join", {pageTitle : "Join"});
+import routes from "../routes";
+
+export const getJoin = (req, res) => {
+    res.render("join", {pageTitle : "Join"});
+};
+
+export const postJoin = (req, res) => {
+    const {
+        body: {name, email, password, password2}
+    } = req;
+    // req.body.name
+    // req.body.email
+    // req.body.password
+    // req.body.password2
+    if(password !== password2){
+        // password 와 password2가 서로 다른경우 400으로 상태코드를 전달
+        res.status(400);
+        res.render("join", {pageTitle : "Join"});
+    } else {
+        // password 와 password2가 서로 같다면 routes.home으로 redirect
+        // To Do: Register User
+        // To Do: Log user in
+        res.redirect(routes.home);
+    }
+};
 export const login = (req, res) => res.render("login", {pageTitle : "Login"});
 export const logout = (req, res) => res.render("logout", {pageTitle : "Logout"});
 

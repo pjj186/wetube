@@ -11,7 +11,7 @@ export const search = (req, res) => {
     } = req;
     //const searchingBy = req.query.term; 과 같음
 
-    res.render("search", {pageTitle : "Search", searchingBy});
+    res.render("search", {pageTitle : "Search", searchingBy, videos});
     // { searchingBy } 는 { searchingBy : searchingBy } 와 같음.
 };
 
