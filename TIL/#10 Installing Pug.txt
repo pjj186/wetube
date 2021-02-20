@@ -1,0 +1,21 @@
+PUG 는 템플릿 언어, express의 view engine 이다.
+pug는 html 파일들이 더 아름답게 보이도록 만들어준다.
+
+터미널에 npm install pug 입력하여 pug 설치
+
+app.set('view engine', pug);
+
+로 express의 view engine을 pug로 설정
+
+컨트롤러의 res.send() 부분을
+
+res.render() 로 변경하여 템플릿을 웹사이트에서 보여줄 수 있다.
+
+export const home = (req, res) => res.send("Home"); 을
+
+아래와 같이 수정.
+render 함수의 인자로 템플릿 파일의 이름을 입력.
+그러면 render 함수가 views 폴더에서 파일명이 home이고 확장자가 pug인 템플릿 파일을 찾은 후에 
+웹사이트에 보여준다.
+
+export const home = (req, res) => res.render("home");

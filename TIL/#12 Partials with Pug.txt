@@ -1,0 +1,30 @@
+복습 + partial
+#####
+[설치 & 셋팅 & 적용]
+
+1. 퍼그 설치 - ( npm install pug)
+2. 퍼그 템플릿 적용법 1 (Express Set)
+
+app.set("view engine", "pug"); 라고 해주면, 기본적으로(default) = views 폴더에서 pug 파일을 찾음.
+
+3. 퍼그 적용하기 (render)
+
+컨트롤러에서, res.render 로 pug파일이름을 주면, 얘가 퍼그파일을 불러옴.
+
+[Layout]
+
+1. 레이아웃 짜기 (main) 이라는 하나의 레이아웃을 짜고,
+2. 각 페이지별로 바뀔부분만을 적용할 수 있도록(컴포넌트로활용)해 contents 부분만을 바꾼다.
+3. 바꿀 부분을 block content << 라고 잡아줬다. (content 부분은 바뀔 수 있음 그냥 block의 이름임)
+4. 다른 페이지에서 extends layout/main << 이렇게 임포트해오고,
+5. block content (main에 있던것과 똑같이) 적어준 뒤, 해당 부분에 적용할 콘텐츠를 적는다.
+
+[partial]
+
+컴포넌트화 시켜서 분리할 수 있음. (header & footer)
+
+include를 사용함.
+
+*pug에서도 자바스크립트를 사용할 수 있음 다음과 같은 방식 → #{ js Code }
+
+*div는 쓰지않아도 div가 적용됨.
