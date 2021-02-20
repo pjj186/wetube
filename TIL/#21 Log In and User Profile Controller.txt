@@ -1,0 +1,86 @@
+views - partials - header.pug 에서
+
+로그인, 비로그인에 따라 보이는 메뉴?를 구분하기 위해서
+
+middleware.js에
+user라는 객체를 만들어주고, 
+
+user 객체는
+isAuthenticated: true,
+id : 1
+값을 가지도록 정의.
+
+그리고 이를 이용해 header.pug 에서 로그인, 비로그인에 따라 보이는 메뉴를 구분함.
+(if문을 이용해서!)
+코드 =>
+ul 
+    if !user.isAuthenticated
+        li 
+            a(href=routes.join) Join 
+        li
+            a(href=routes.login) Log In
+    else
+        li 
+            a(href=routes.upload) Upload
+        li
+            a(href=routes.userDetail(user.id)) Profile
+        li 
+            a(href=routes.logout) Log Out
+
+설명 =>
+user 객체를 만들때, isAuthenticated 를 true로 선언했으므로,
+if문에서 else문으로 빠지게된다. 그렇기때문에 Join, Log In 은 보이지 않고 Upload, Profile, Log Out 만 보이게 된다.
+
+그리고 routes.userDetail(user.id)) Profile 이렇게 코딩을 해줬는데, 그 이유는
+express는 routes.userDetail 이렇게만 해줘도
+user/:id 경로구나 이해를 할 것이다. 하지만 HTML은 routes.userDetail 이렇게만 해주게되면
+user/:id 로 통하지않고 /:id 로 링크를 타버리기때문에 원하는 페이지를 볼 수 없다.
+이를 해결하기위해. routes.js에 들어가서 코드를 수정했다.
+
+그 방법으로는 routes.js에 정의된 routes 객체의 userDetail 을 함수의 형태로 수정해주었다.
+코드=>
+userDetail: (id) => {
+    if(id){
+        return `users/${id}`
+    } else {
+        return USER_DETAIL;
+    }
+}
+
+설명=>
+user객체는 id값을가지고있다. (id : 1)
+
+a태그의 Profile 을 누르면 routes.userDetail() 함수를 실행시킨다.
+
+그런데 a(href=routes.userDetail(user.id)) 와같이 user.id를 인자로 넘겨준다.
+
+그러면 id 값을 넘겨주었기때문에 `users/${id}` 를 return 하게된다. 
+따라서 localhost:4000/:id 로 이동하는것이 아닌, localhost:4000/users/1 로 이동하게된다.
+
+userRouter.js 코드도 이와 관련하여 수정을 해주었는데 그 이유는, routes.js의 정의된 userDetail 을 수정해주었기때문에
+
+userRouter.get(routes.userDetail, userDetail); 를
+userRouter.get(routes.userDetail(), userDetail); 와 같이 수정해주어야한다.
+
+여기서는 인자를 넘기지않는다. why?
+app.js에서 
+
+app.use(routes.users, userRouter); 이 코드를 통하여
+
+user/ 로 넘어오게되면 userRouter.js 에서 Router 를 이용한 접근은
+
+자동적으로 user/edit-profile, user/:id, user/:change-password 과 같이
+
+user/~~~~~ 이런식으로 넘어오게된다. 
+
+만약에,
+userRouter.get(routes.userDetail(1), userDetail); 과 같이 인자를 넘겨주게되면,
+userDetail() 함수는 `user/${id}` 를 반환하게 될테고, userDetail 페이지로 접근하려면
+localhost:4000/user/1 이 아닌,
+
+localhost:4000/user/user/1 로 접근해야 페이지가 응답할것이다.
+user/user/1 에서 페이지를 렌더링하고있기 때문이다.
+
+렌더링을 하고 있지 않은 경로로 접근하면 당연히 페이지는 응답하지 못한다.
+* 라우터는 경로를 나타낸다고 이해! 설정한 경로로 접근하면, 설정해놓은 함수를 실행!(현재로썬 render해주는 함수를 실행!) 그 외 경로로 접근하면 응답안함!
+* HTML form 태그에서 POST/GET method로 데이터를 submit 하면, 각각 method에 맞는 방식으로 데이터를 받아와야함!

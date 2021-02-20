@@ -3,7 +3,6 @@ import routes from "../routes";
 export const getJoin = (req, res) => {
     res.render("join", {pageTitle : "Join"});
 };
-
 export const postJoin = (req, res) => {
     const {
         body: {name, email, password, password2}
@@ -23,7 +22,13 @@ export const postJoin = (req, res) => {
         res.redirect(routes.home);
     }
 };
-export const login = (req, res) => res.render("login", {pageTitle : "Login"});
+
+export const getLogin = (req, res) => 
+    res.render("login", {pageTitle : "Login"});
+export const postLogin = (req,res) => {
+    res.redirect(routes.home);
+}
+
 export const logout = (req, res) => res.render("logout", {pageTitle : "Logout"});
 
 export const userDetail = (req, res) => res.render("userDetail", {pageTitle : "User Detail"});
