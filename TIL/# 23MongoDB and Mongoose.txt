@@ -1,0 +1,11 @@
+* MongoDB
+- MongoDB 는 Database 이며, NoSQL Database이다.
+- 특징은 규칙이 적고 엄청 유연해서 많은 부분을 수정할 수 있다.
+
+* MongoDB Install
+https://javacpro.tistory.com/64 참고
+
+* MongoDB 를 JS 와 연결하기
+- mongoosejs 설치
+- mongoosejs는 NodeJS를 위한 Object Modeling
+- npm install mongoose 터미널에 입력하여 설치
