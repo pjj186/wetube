@@ -1,5 +1,4 @@
 import { format } from "morgan";
-import {videos} from "../db";
 import routes from "../routes";
 
 export const home = (req, res) => {
