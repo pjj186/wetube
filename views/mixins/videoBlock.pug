@@ -1,7 +1,10 @@
 //- home.pug에서 videoBlock에 객체를 만들어 인자로 넣어주면,
 //- 아래의 videoBlock에서 처리하여 보여줌
+//- videoBolock 의 인자로 넘어온 title,videoFilr, views 는
+//- video = {} 에 저장되어 videoBlock 내부에서 사용함
 mixin videoBlock(video = {})
     div.videoBlock
-        video.videoBlock__thumbnail(src=video.videoFile controls=true)
-        h4.videoBlock__title=video.title
-        h6.videoBlock__views=video.views
+        a(href=routes.videoDetail(video.id))
+            video.videoBlock__thumbnail(src=video.videoFile controls=true)
+            h4.videoBlock__title=video.title
+            h6.videoBlock__views=video.views
