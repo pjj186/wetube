@@ -1,0 +1,15 @@
+npm install dotenv
+
+사용법 =>
+import dotenv
+dotenv.config();
+이렇게 셋팅하고,
+***dotenv - 비밀만들기 !**
+
+npm install dotenv
+
+사용법 =>
+import dotenv
+dotenv.config();
+이렇게 셋팅하고,
+process.env.만든변수 << 이렇게 사용함.

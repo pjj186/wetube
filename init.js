@@ -1,7 +1,10 @@
 import "./db";
 import app from "./app";
+import dotenv from "dotenv";
+dotenv.config();
 
-const PORT = 4000;
+// process.env.PORT 라는 대상을 못찾으면 4000으로
+const PORT = process.env.PORT || 4000; 
 
 const handleListening = () => {
     console.log(`✅ Listening on: http://localhost:${PORT}`);
