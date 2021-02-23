@@ -1,0 +1,7 @@
+* async 개념
+MDN link : https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function
+
+* await : async와 같이 쓰이는 문법
+await 부분이 끝나기 전까지는 밑의 코드 부분을 실행하지 않는다.
+await 꼭 성공적으로 끝나야하는것은 아니다. 그저 끝날때까지 기다릴 뿐 따라서 에러가 나더라도 끝나면 다음 코드로 진행
+에러를 방지하기 위해 예외처리(try~catch 구문을 사용)
