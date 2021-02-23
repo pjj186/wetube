@@ -1,0 +1,126 @@
+[Model]
+
+mongoose로 스키마를 만든다. 모델을 만들어 이를 export해준다.
+
+그리고, Init에서 만든 Model을 import 해온다.
+
+[Schema]
+model의 형식. model이 가져야 할 필수 요소들의 틀을 만들어줌.
+
+[Relationship]
+서로 다른 Schema를 가진 서로 다른 데이터가 문맥상(웹 상에서) 연관성을 가지고 있을 때 서로의 Schema를 ref를 통해 연결 시켜준다.
+
+#####
+
+Comment 구현의 두가지 방식
+
+1. 모든 Comment ID 들을 array로 video에 집어 넣을것인가.
+- 이 방식은 모든 Comment의 정보를 array에 넣는것이 아니라 Comment의 ID 만 넣는것
+- [1,2,4,7] 이런식으로 Video와 연결 된 Comment들의 ID가 저장됨.
+* CODE =>
+
+*** Video.js ***
+import mongoose from "mongoose";
+
+const VideoSchema = new mongoose.Schema({
+    fileUrl: {
+        type: String,
+        required: 'File URL is required' // 에러메시지
+    },
+    title: {
+        type:String,
+        required: "Title is required"
+    },
+    description: String,
+    views: {
+        type: Number,
+        default: 0
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    // comments 는 Array
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    }]
+});
+
+const model = mongoose.model("Video", VideoSchema);
+export default model;
+
+*** Video.js END ***
+*** Comment.js ***
+
+import mongoose from "mongoose";
+
+const CommentSchema = new mongoose.Schema({
+    text: {
+        type: String,
+        required: "Text is required"
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const model = mongoose.model("Comment", CommentSchema);
+export default model;
+
+*** Comment.js END ***
+
+
+2. Comment에 연결 된 Video ID를 줄 것인가
+
+* CODE => 
+
+*** Video.js ***
+
+import mongoose from "mongoose";
+
+const VideoSchema = new mongoose.Schema({
+    fileUrl: {
+        type: String,
+        required: 'File URL is required' // 에러메시지
+    },
+    title: {
+        type:String,
+        required: "Title is required"
+    },
+    description: String,
+    views: {
+        type: Number,
+        default: 0
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const model = mongoose.model("Video", VideoSchema);
+export default model;
+
+*** Video.js END ***
+*** Comment.js ***
+
+import mongoose from "mongoose";
+
+const CommentSchema = new mongoose.Schema({
+    text: {
+        type: String,
+        required: "Text is required"
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    video: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Video"
+    }
+});
+
+*** Comment.js END ***
