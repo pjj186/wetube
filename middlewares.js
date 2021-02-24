@@ -3,7 +3,7 @@ import routes from "./routes";
 
 // dest 는 파일이 저장될 위치
 // videos 폴더가 생성된 후 거기에 파일이 생성됨.
-const multerVideo = multer({dest: "videos/"});
+const multerVideo = multer({dest: "uploads/videos/"});
 
 export const localMiddleware = (req, res, next) => {
     res.locals.siteName = 'WeTube';

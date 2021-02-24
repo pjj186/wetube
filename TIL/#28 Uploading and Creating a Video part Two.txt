@@ -1,0 +1,40 @@
+비디오 업로드를 하였으나 링크가 깨졌기때문에 재생이 되지않는다.
+따라서 이를 고쳐주어야한다.
+
+middleware.js
+//
+const multerVideo = multer({dest: "videos/"}); 를
+const multerVideo = multer({dest: "uploads/videos/"}); 로 수정
+이 때, /uploads/videos/ 이런식으로 안 쓰는게 중요하다.
+왜냐햐면 해당 위치가 project file 안에 있는 directory 라고 생각 할 것이기 때문
+만약 /uploads/videos/ 이런식으로 쓰게되면 내 컴퓨터의 root에 upload를 만들게된다.
+
+또 하나 수정해줘야 할 것이있는데, 저번 강의 기준으로
+MongoDB model이 한 document를 Database에 저장했고, 그 Document는 잘못된 URL을 가지고 있다.
+
+-- TERMINAL --
+
+mongo 입력
+use we-tube 입력
+show collections 입력 (collections는 models 같은것임)
+->videos
+db.videos.remove({}) 입력
+->WriteResult({ "nRemoved" : 삭제한 Videos 수 })
+
+--
+
+이제 다시 비디오를 업로드하고 재생하려고하면, 여전히 링크가 깨져 비디오가 나오지 않는 현상을 목격
+Express에선 모든 것에 대한 Route가 있고, Uploads를 위한 기본적인 route도 필요함
+이를 위해 app.js 에서
+app.use("/uploads", express.static("uploads")); 를 작성
+static()은 directory에서 file을 보내주는 middleware임.
+(주어진 directory에서 file을 전달하는 새로운 middleware function)
+
+따라서 이 경우에 어떤 종류의 controller나 view 같은 건 확인하지 않음
+그저 file만 확인함.
+
+위 코드를 작성하면, 이제 /uploads로 가면
+uploads라는 directory안으로 들어간다는 뜻
+
+그러나 이것은 좋은 예시가 아니다.
+좋은 예시는 지금처럼 file을 다루는게 아닌, 다른 클라우드에서 URL만 받아오는것
