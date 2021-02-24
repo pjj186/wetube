@@ -1,6 +1,7 @@
 extends layouts/main
 include mixins/videoBlock
-//- videos 는 home에서 받아온다.
+//- videos 는 videoController.js의 home 메소드에서 받아온다.
+
 block content
     div.videos
         each item in videos

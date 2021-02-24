@@ -1,10 +1,10 @@
 import { format } from "morgan";
-import Video from "../models/Video";
+import Video from "../models/Video"; // 이건 Database의 element가 아니라 단지 Model임. element를 받는 통로일뿐 element 그 자체는 아니다.
 import routes from "../routes";
 
 export const home = async(req, res) => {
     try {
-        const videos = await Video.find({});
+        const videos = await Video.find({}); // Database에 있는 모든 Video를 가져옴
         res.render("home", {pageTitle : "Home", videos});
     } catch(error) {
         console.log(error);
@@ -27,16 +27,19 @@ export const search = (req, res) => {
 export const getUpload = (req, res) => 
     res.render("upload", {pageTitle : "Upload"});
 
-export const postUpload = (req, res) => {
+export const postUpload = async(req, res) => {
     const {
-        body: {
-            file,
-            title,
-            description
-        }
-    } = req;
-    // To Do: Upload and save video
-    res.redirect(routes.videoDetail(324393));
+        body: { title, description},
+        file : { path } // path = req.file.path
+     } = req;
+     const newVideo = await Video.create({ // DB에 만든다고 생각
+        fileUrl: path,
+        title,
+        description
+     });
+    console.log(newVideo);
+    // newVideo.id 는 MongoDB가 랜덤으로 만들어서 할당한다.
+    res.redirect(routes.videoDetail(newVideo.id));
 };
 
 export const videoDetail = (req, res) => res.render("videoDetail", {pageTitle : "VideoDetail"});

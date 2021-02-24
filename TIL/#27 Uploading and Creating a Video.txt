@@ -1,0 +1,54 @@
+* multer : FILE의 URL 반환을 돕는 미들웨어
+
+upload form에 enctype을 적어주어야한다.
+why? file을 보내기때문.. 따라서 form의 encoding이 달라야함.
+
+
+//
+upload form에서 비디오파일을 올리면, Home에도 올라가게됨.
+
+** 원리 **
+
+upload 페이지에서 비디오 파일 선택, Title, description 을 입력 후 업로드 버튼 클릭
+(/video/upload 경로로 post 메소드로 요청됨)
+
+videoRouter.js의
+
+videoRouter.post(routes.upload, uploadVideo, postUpload); 코드가 이 요청을 받음.
+여기서 uploadVideo 는 multer 미들웨어
+
+videoController.js 로 들어가서
+
+postUpload 함수에서 비디오 업로드를 처리함
+
+newVideo 변수에 models/Video.js의 스키마를 참조하여 create 한다. (DB에 create 한다고 생각)
+//
+const newVideo = await Video.create({
+    fileUrl: path,
+    title,
+    description
+});
+//
+
+후에 newVideo.id 를 이용해 videoDetail 사이트로 리다이렉트 한다.
+res.redirect(routes.videoDetail(newVideo.id));
+
+이제 home 으로 방금 업로드한 비디오가 올라와있는걸 볼 수 있다.
+그 이유는 Home으로 요청하게되면. videoController의 home 메서드에서 
+
+const videos = await Video.find({}); 를 home으로 렌더링할때 보내주게되고,
+(Video.find({})는 Database에 있는 모든 Video를 가져옴)
+home에서는 
+
+block content
+    div.videos
+        each item in videos
+            +videoBlock({
+                id:item.id,
+                title: item.title,
+                views: item.views,
+                videoFile:item.videoFile
+            })
+
+이 코드를 통해서 videos에 저장된 비디오들을 차례대로 출력하는것이다.
+
