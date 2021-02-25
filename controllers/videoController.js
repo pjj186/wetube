@@ -50,7 +50,7 @@ export const videoDetail = async(req, res) => {
     // Video 는 model, mongoose 메서드를 사용
     const video = await Video.findById(id); // id를 이용하여 DB에 저장된 객체를 찾는다.
     // views의 videoDetail로 pageTitle 과 video를 전달 
-    res.render("videoDetail", {pageTitle: "Video Detail" , video });
+    res.render("videoDetail", {pageTitle: video.title , video });
     } catch (error) { 
         console.log(error);
         res.redirect(routes.home);
@@ -77,7 +77,7 @@ export const postEditVideo = async(req, res) => { // 비디오를 업데이트
         // description = req.body.description
     } = req; // id = req.params.id
     try {
-        await Video.findOneAndUpdate({ _id: id }, {title, description})
+        await Video.findOneAndUpdate({ _id: id }, {title, description});
         // 해당 id 를 가지고 있는 Model의 title과 description을 업데이트
         res.redirect(routes.videoDetail(id));
     } catch(error) {
@@ -85,4 +85,16 @@ export const postEditVideo = async(req, res) => { // 비디오를 업데이트
     }
 }
 
-export const deleteVideo = (req, res) => res.render("deleteVideo", {pageTitle : "DeleteVideo"});
+export const deleteVideo = async(req, res) => {
+    const {
+        params: {id}
+    } = req; // id = req.params.id
+
+    try {
+        // Finding and Deleting
+        await Video.findOneAndRemove({_id: id});
+    } catch(error) {
+        // Nothing
+    }
+    res.redirect(routes.home);
+}

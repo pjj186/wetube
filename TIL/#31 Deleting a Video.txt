@@ -1,0 +1,8 @@
+비디오 삭제는 GET 만 있으면 됨.
+왜냐면 POST 할 일이 없다. 이게 무슨뜻이냐면 만약 누군가 비디오 삭제를 누르면
+URL로 가서 그 URL을 가져와서 해당하는 비디오를 삭제해주면 됨
+
+비디오 삭제는 mongoose.js 의
+Model.findOneAndRemove 메소드를 이용하여 삭제한다.
+
+await Video.findOneAndRemove({_id: id});
