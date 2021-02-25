@@ -42,7 +42,20 @@ export const postUpload = async(req, res) => {
     res.redirect(routes.videoDetail(newVideo.id));
 };
 
-export const videoDetail = (req, res) => res.render("videoDetail", {pageTitle : "VideoDetail"});
+export const videoDetail = async(req, res) => {
+    const {
+        params: {id}
+    } = req; // id = rep.params.id
+    try{
+    // Video 는 model, mongoose 메서드를 사용
+    const video = await Video.findById(id); // id를 이용하여 DB에 저장된 객체를 찾는다.
+    // views의 videoDetail로 pageTitle 과 video를 전달 
+    res.render("videoDetail", {pageTitle: "Video Detail" , video });
+    } catch (error) {
+        console.log(error);
+        res.redirect(routes.home);
+    }
+}
 
 export const editVideo = (req, res) => res.render("editVideo", {pageTitle : "EditVideo"});
 
