@@ -1,0 +1,29 @@
+### GET ###
+Video Detail 페이지에서 Edit Video를 클릭하면, Get 방식으로 요청을 넘기기때문에,
+
+videoController에서 getEditVideo 메소드를 이용하여 먼저 Edit을 요청한 비디오의 id 값과 description 값을 가져온다.
+### *** ###
+
+### POST ###
+
+비디오를 수정해주기 위해 사용할 mongoose 메소드는
+
+Model.findOneAndUpdate()이다.
+
+await Video.findOneAndUpdate({ _id: id }, {title, description})
+
+* 변수에 저장을 안하는 이유
+- 업데이트한 결과물을 새로운 변수로 저장하고 싶지 않기때문
+- 그냥 업데이트하면 끝
+
+* findOneAndUpdate 원리
+- editVideo.pug에 있는 form에서 default 값을 설정했었다.
+**
+input(type="text", placeholder="Title", name="title", value=video.title)
+textarea(name="description", placeholder="Description")=video.description
+**
+
+여기서 제목부분만 수정하고 form을 전송하게되면 제목부분은 바뀌어서 업데이트되고, 설명 부분은 그대로일 것이다.
+
+findOneAndUpdate 에 대한 자세한 사용법은 아래 링크 참고
+https://mongoosejs.com/docs/tutorials/findoneandupdate.html

@@ -45,18 +45,44 @@ export const postUpload = async(req, res) => {
 export const videoDetail = async(req, res) => {
     const {
         params: {id}
-    } = req; // id = rep.params.id
+    } = req; // id = rep.params.id (/:id 의 id 부분임)
     try{
     // Video 는 model, mongoose 메서드를 사용
     const video = await Video.findById(id); // id를 이용하여 DB에 저장된 객체를 찾는다.
     // views의 videoDetail로 pageTitle 과 video를 전달 
     res.render("videoDetail", {pageTitle: "Video Detail" , video });
-    } catch (error) {
+    } catch (error) { 
         console.log(error);
         res.redirect(routes.home);
     }
 }
 
-export const editVideo = (req, res) => res.render("editVideo", {pageTitle : "EditVideo"});
+export const getEditVideo = async (req, res) =>  {// 템플릿을 렌더링
+    const {
+        params: {id}
+    } = req; // id = req.params.id
+    try {
+        const video = await Video.findById(id);
+        res.render("editVideo", {pageTitle: `Edit ${video.title}`, video});
+
+    } catch(error) { // 만약 해당하는 비디오를 못찾는다면
+        res.redirect(routes.home);
+    }
+}
+export const postEditVideo = async(req, res) => { // 비디오를 업데이트
+    const {
+        params: { id },
+        body: {title, description}
+        // title = req.body.title
+        // description = req.body.description
+    } = req; // id = req.params.id
+    try {
+        await Video.findOneAndUpdate({ _id: id }, {title, description})
+        // 해당 id 를 가지고 있는 Model의 title과 description을 업데이트
+        res.redirect(routes.videoDetail(id));
+    } catch(error) {
+        res.redirect(routes.home);
+    }
+}
 
 export const deleteVideo = (req, res) => res.render("deleteVideo", {pageTitle : "DeleteVideo"});
