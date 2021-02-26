@@ -1,0 +1,14 @@
+* regular expression
+- string으로부터 무언가를 가져오는 것
+- https://regex101.com/
+
+videos = await Video.find({title: {$regex: searchingBy}});
+그냥 find를 이용해서 제목을 찾는것이 아닌, regular expression을 이용해서 제목을 찾는다.
+
+
+videos = await Video.find({title: {$regex: searchingBy, $options: "i"}});
+옵션을 넣어줄건데, i는 덜 민감하다는걸 의미, 즉 찾으려는 문자의 대소문자를 구분하지않음
+예를들어 검색을 HANDSOME으로 해도, handsome도 검색결과로 나온다.w
+
+* find로 Video 에있는값을 찾으면, videos 배열에 찾는 Model을 객체형태로 집어넣는다.
+그리하여 search.pug에서 검색기능을 구현할 수 있는것
