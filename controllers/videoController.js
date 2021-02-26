@@ -1,10 +1,10 @@
-import { format } from "morgan";
 import Video from "../models/Video"; // 이건 Database의 element가 아니라 단지 Model임. element를 받는 통로일뿐 element 그 자체는 아니다.
 import routes from "../routes";
 
 export const home = async(req, res) => {
     try {
-        const videos = await Video.find({}); // Database에 있는 모든 Video를 가져옴
+        const videos = await Video.find({}).sort({_id: -1}); // Database에 있는 모든 Video를 가져옴
+        // sort id:-1을 하는 이유는 위 아래 순서를 바꾸겠다는 뜻
         res.render("home", {pageTitle : "Home", videos});
     } catch(error) {
         console.log(error);
@@ -20,7 +20,7 @@ export const search = (req, res) => {
     //const searchingBy = req.query.term; 과 같음
     console.log(searchingBy);
     console.log(req.query.term);
-    res.render("search", {pageTitle : "Search", searchingBy, videos});
+    res.render("search", {pageTitle : "Search", searchingBy});
     // { searchingBy } 는 { searchingBy : searchingBy } 와 같음.
 };
 
@@ -95,6 +95,7 @@ export const deleteVideo = async(req, res) => {
         await Video.findOneAndRemove({_id: id});
     } catch(error) {
         // Nothing
+        console.log(error);
     }
     res.redirect(routes.home);
 }
