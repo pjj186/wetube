@@ -41,7 +41,7 @@ const config = {
                                     [
                                         'autoprefixer',
                                         {
-                                            browsers: "cover 99.5%"
+                                            //browsers: "cover 99.5%"
                                         }
                                     ]
                                 ]
@@ -66,7 +66,8 @@ const config = {
             // both options are optional
             filename: 'styles.css'
         })
-    ]
+    ],
+    devtool: "source-map"
 };
 
 
