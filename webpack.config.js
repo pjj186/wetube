@@ -10,10 +10,18 @@ const ENTRY_FILE = path.resolve(__dirname, "assets", "js", "main.js"); // __dirn
 const OUTPUT_DIR = path.join(__dirname, "static");
 
 const config = {
-    entry: ENTRY_FILE,
+    entry: ["@babel/polyfill", ENTRY_FILE],
     mode: MODE,
     module: {
         rules: [
+            {
+                test: /\.(js)$/,
+                use: [
+                    {
+                        loader: "babel-loader"
+                    }
+                ]
+            },
             {
                 test: /\.(scss)$/, // SCSS로 끝나는 어떤 module(이 경우엔 styles.scss파일)을 만나게되면, 이 plugin을 사용하도록 함
                 use: [ // 잘 호환되는 순수한 CSS가 불러와지면, 그 부분만 텍스트를 추출해서, 어딘가로 보냄

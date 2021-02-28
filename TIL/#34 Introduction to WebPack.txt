@@ -7,3 +7,12 @@ webpack은 실행되면 가장먼저 webpack.config.js 파일부터 찾는다.
 webpack은 두가지를 가지고 있는데, 하나는 entry 또 하나는 output이다.
 entry는 파일들이 어디서 왔는가? 이고
 output은 그것들을 어디에 넣을것인가? 이다.
+
+webpack 에서 꼭 기억해야할것
+1. ENTRY
+2. MODE
+3. rules
+4. loader
+5. output
+
+* webpack.config 파일을 봤을때 상황이 어떻게 돌아가고 있는지 볼 줄 알면 됨.
