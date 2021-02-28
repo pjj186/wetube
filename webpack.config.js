@@ -1,8 +1,8 @@
 // config 파일 안에서 명심해야 될 건, server 코드와는 연관시키지 않아야한다는 점
 // 이곳에선 babel 을 사용할 수 없기때문에, 예전 자바스크립트 코드를 작성해야함
 const path = require("path");
-const autoprefixer = require("autoprefixer");
-const MiniCssExtractCSS = require("mini-css-extract-plugin");
+// const autoprefixer = require("autoprefixer");
+// const MiniCssExtractCSS = require("mini-css-extract-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const MODE = process.env.WEBPACK_ENV;
