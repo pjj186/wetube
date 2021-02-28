@@ -1,0 +1,9 @@
+* 웹팩 : module bundler, 우리가 많은 파일들을 가져와서 webpack에게 주면 webpack은 그것들을, 완전히 호환이 되는 static 파일들로 변환해서 줌
+
+설치 : https://velog.io/@since-1994/webpack 참고
+
+webpack은 실행되면 가장먼저 webpack.config.js 파일부터 찾는다.
+
+webpack은 두가지를 가지고 있는데, 하나는 entry 또 하나는 output이다.
+entry는 파일들이 어디서 왔는가? 이고
+output은 그것들을 어디에 넣을것인가? 이다.
