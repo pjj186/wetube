@@ -3,7 +3,7 @@ include mixins/videoBlock
 //- videos 는 videoController.js의 home 메소드에서 받아온다.
 
 block content
-    div.videos
+    div.home-videos
         each item in videos
             +videoBlock({
                 id:item.id,
