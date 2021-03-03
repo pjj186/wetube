@@ -1,0 +1,8 @@
+* strategy : 로그인하는 방식
+
+
+User Model 만들기 & import (init)
+Passport Local Mongoose ( install -> import -> plugin 적용 -> 설정객체 설정)
+Passportjs 파일 생성 후,
+Passport & Passport-local 설치 -> import passport & user Model
+Passport 설정(Strategy) .with create Strategy
