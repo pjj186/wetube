@@ -1,0 +1,14 @@
+인증 (authenfication) 기능을 위해서 Passport 라는 것 사용
+Passport는 사용자 인증을 구현시켜주는 미들웨어
+
+인증이란?
+- 브라우저 상에 쿠키(Cookies)를 설정해주면 그 쿠키를 통해서 사용자 ID 등을 알 수 있을테고,
+Passport가 브라우저에서 자동으로 쿠키를 가져와서 인증이 완료된 User object를 controller에 넘겨준다.
+
+쿠키(Cookies)란?
+- 쿠키는 우리가 브라우저에 저장할 수 있는 것들
+- 여기에는 모든 요청(request)에 대해서, 백엔드(back-end)로 전송될 정보들이 담겨있다.
+
+* Passport-Local Mongoose 모듈
+- 사용자 기능 (user functionality) 을 추가하는 모듈
+- User model을 위한것. (User라는 model을 만들어야함)
