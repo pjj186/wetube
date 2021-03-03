@@ -1,10 +1,11 @@
 import routes from "../routes";
 import User from "../models/User";
+import passport from "passport";
 
 export const getJoin = (req, res) => {
     res.render("join", {pageTitle : "Join"});
 };
-export const postJoin = async (req, res) => {
+export const postJoin = async (req, res, next) => { 
     const {
         body: {name, email, password, password2}
     } = req;
@@ -23,18 +24,21 @@ export const postJoin = async (req, res) => {
           email  
         }); // User를 만들어주고,
         await User.register(user, password); // User.register로 위에서 만든 유저와 비밀번호를 전달하면 유저가 생성
+        next(); //  !!!! 넥스트 여깄음!!!!!
         } catch (error) {
             console.log(error);
+            res.redirect(routes.home);
         }
-        res.redirect(routes.home);
     }
 };
 
+
 export const getLogin = (req, res) => 
     res.render("login", {pageTitle : "Login"});
-export const postLogin = (req,res) => {
-    res.redirect(routes.home);
-}
+export const postLogin = passport.authenticate('local', {
+    failureRedirect: routes.login, // 만약 로그인에 실패했다면 routes.login 으로 이동
+    successRedirect: routes.home // 로그인에 성공하면 routes.home 으로 이동
+}); // 여기서 'local'은 우리가 설치해준 Strategy의 이름
 
 export const logout = (req, res) => {
     // To Do: Process Log Out

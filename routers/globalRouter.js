@@ -6,7 +6,7 @@ import routes from "../routes";
 const globalRouter = express.Router();
 // globalRouter 변수는 Router 
 globalRouter.get(routes.join, getJoin);
-globalRouter.post(routes.join, postJoin);
+globalRouter.post(routes.join, postJoin, postLogin);
 
 
 globalRouter.get(routes.home, home);

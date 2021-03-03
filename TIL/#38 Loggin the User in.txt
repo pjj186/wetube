@@ -1,0 +1,15 @@
+* postJoin 을 미들웨어로 바꿔주고, 이로 인하여
+먼저 postJoin 에서 가입을 시키고, 그 다음 postLogin에서 로그인 시킬것이다.
+
+다시말하면, postJoin에서 받은 username(여기서는 email)과 password 정보들을 postLogin으로 보내도록 할거다.
+
+마치, 로그인 화면에서 form을 통해 postLogin에게 정보를 주듯이..
+
+
+** middleware.js 에서
+
+res.locals.user = req.user;
+- passport가 사용자를 로그인 시킬 때, passport는 쿠키나 serialize, deserialize 등의 기능을 다 지원해줌은 물론이고, user가 담긴 object를 요청(request)에도 올려줄거야.
+
+* express-session : session을 관리해주기 위해 필요한 것 
+- 쿠키를 이용하기 위해서 꼭 설치해줘야함!
