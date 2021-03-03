@@ -13,6 +13,6 @@ const UserSchema = new mongoose.Schema({
 // usernameField: "username"이 될 field명을 명시해줍니다.
 UserSchema.plugin(passportLocalMongoose, {usernameField: "email"});
 
-const model = mongoose.Model("User", UserSchema);
+const model = mongoose.model("User", UserSchema);
 
 export default model;

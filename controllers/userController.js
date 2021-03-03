@@ -1,9 +1,10 @@
 import routes from "../routes";
+import User from "../models/User";
 
 export const getJoin = (req, res) => {
     res.render("join", {pageTitle : "Join"});
 };
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res) => {
     const {
         body: {name, email, password, password2}
     } = req;
@@ -16,9 +17,15 @@ export const postJoin = (req, res) => {
         res.status(400);
         res.render("join", {pageTitle : "Join"});
     } else {
-        // password 와 password2가 서로 같다면 routes.home으로 redirect
-        // To Do: Register User
-        // To Do: Log user in
+        try {
+        const user = await User({
+          name, 
+          email  
+        }); // User를 만들어주고,
+        await User.register(user, password); // User.register로 위에서 만든 유저와 비밀번호를 전달하면 유저가 생성
+        } catch (error) {
+            console.log(error);
+        }
         res.redirect(routes.home);
     }
 };
