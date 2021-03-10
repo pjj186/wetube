@@ -15,6 +15,8 @@ import "./passport";
 
 const app = express();
 
+const MongoStore = require("connect-mongo").default;
+
 // middlewares
 app.use(helmet({contentSecurityPolicy: false}));
 app.set('view engine', "pug");
@@ -32,7 +34,8 @@ app.use(morgan("dev"));
 app.use(session({
     secret: process.env.COOKIE_SECRET,
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: MongoStore.create({mongoUrl: process.env.MONGO_URL})
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // 세션 저장

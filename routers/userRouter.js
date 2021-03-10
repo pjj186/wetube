@@ -1,5 +1,6 @@
 import express from "express"; // const express = require('express');
 import { changePassword, editProfile, userDetail, } from "../controllers/userController";
+import { onlyPrivate } from "../middlewares";
 import routes from "../routes";
 
 const userRouter = express.Router();
@@ -7,8 +8,8 @@ const userRouter = express.Router();
 
 // userRouter.get()에서 두번째 인자는 함수
 
-userRouter.get(routes.editProfile, editProfile);
-userRouter.get(routes.changePassword, changePassword);
+userRouter.get(routes.editProfile, onlyPrivate, editProfile);
+userRouter.get(routes.changePassword, onlyPrivate, changePassword);
 userRouter.get(routes.userDetail(), userDetail);
 
 // 여기서 userDetail()에 인자를 주게되면
